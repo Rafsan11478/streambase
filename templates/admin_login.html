@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - StreamBase{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <div class="admin-card">
+        <div class="text-center" style="margin-bottom: 40px;">
+            <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--accent); margin-bottom: 20px;"></i>
+            <h2>Admin Access</h2>
+            <p style="color: var(--text-secondary);">Enter your admin email to continue</p>
+        </div>
+        
+        <form method="POST" action="{{ url_for('admin_login_post') }}">
+            <div class="form-group">
+                <label for="email">Admin Email</label>
+                <input type="email" 
+                       class="form-control" 
+                       id="email" 
+                       name="email" 
+                       placeholder="Enter admin email"
+                       required 
+                       autocomplete="email">
+            </div>
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                
+                <div style="margin-top: 20px;">
+                    <a href="{{ url_for('index') }}" class="btn" style="background: var(--secondary-bg);">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Add form validation and styling
+document.addEventListener('DOMContentLoaded', function() {
+    const emailInput = document.getElementById('email');
+    const form = document.querySelector('form');
+    
+    // Email validation on input
+    emailInput.addEventListener('input', function() {
+        const email = this.value.toLowerCase().trim();
+        const isValid = email === 'streambase@admin.com';
+        
+        if (email && !isValid) {
+            this.style.borderColor = 'var(--error)';
+        } else {
+            this.style.borderColor = '';
+        }
+    });
+    
+    // Form submission validation
+    form.addEventListener('submit', function(e) {
+        const email = emailInput.value.toLowerCase().trim();
+        if (email !== 'streambase@admin.com') {
+            e.preventDefault();
+            showNotification('Invalid admin email address', 'error');
+            emailInput.style.borderColor = 'var(--error)';
+            emailInput.focus();
+        }
+    });
+    
+    // Auto-focus email input
+    emailInput.focus();
+});
+</script>
+{% endblock %}

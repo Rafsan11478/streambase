@@ -1,0 +1,48 @@
+i wanna make a website where i can give free ott accounts.
+Name:StreamBase
+
+the ui will be smooth, minimalistic, dark/light toggle on the left top corner. the icon will change to sun to moon,
+from the users end. they can only see the options like netflix, prime, etc options. no admin panel option. once they click the options,
+the accounts will show. 
+User Experience:
+
+Users see a clean grid/list of OTT service options with icons (Netflix, Disney+, Spotify, etc.)
+They click on any service they want
+They immediately see available account credentials for that service
+No admin controls visible to regular users
+Admin Experience (My Backend):
+
+You have a separate admin panel/dashboard
+You can add new OTT services with the "+" button
+Upload icons for each service
+Add multiple account credentials for each service
+Manage the account pool
+User Interface:
+
+Clean, simple layout showing just the service options
+Service icons/logos for easy recognition
+Click → get accounts (no registration, no complex flows)
+Responsive design for mobile/desktop
+i can access the admin panel by domail.com/admin. after that it will ask the mail to see if im the owner. the mail is streambase@admin.com,
+once i logged in i will click the plus icon and it will show a box that contains 
+Name of service:
+Icon Class (Font Awesome) - Optional:
+Or Upload Icon - Optional
+Color - Optional
+Account Type: (account credintials or cookies. like if i want i can add the cookies besides account credintials):
+Accounts - Required
+Comments (optional): (any notes for th users )
+
+after that a option will be created 
+and also i can delete options and accounts from the options separately or all at once. once i add a new accounts it will a "New Accounts!" sign in the bottom of each options
+and at the bottom there will be a "Made By Walter" text at the center bottom.This text will be animated gradient color going left to right and right to left. there will be a gif which will be staying beside the text. i mean same size as the text
+U will use the poppins font.
+i provided a screenshot example like how the accounts or cookies will be shows once the users click each options
+like User:
+Pass:
+expiry: 
+etc. i can edit their placeholders too!!
+make sure to create without replit dependencies or without any database. make sure the email and domain protected. iwill upload and host the website in
+github so everyone can access it. so make sure keep it protected. and YOU CAN ASK ME ANY QUESTIONS. also once i can update the accounts i mentioned. so the stored acocunts
+will upldate from github, since its read only it will generate a env code. after doing all the stuff from my end in the bottom it will generate an env code. and i will keep
+updating the code so the website and accounts will keep updating. Make the website super smooth, minimalistic and make no mistakes. ask questuons if have any

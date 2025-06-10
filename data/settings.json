@@ -1,0 +1,8 @@
+{
+  "placeholders": {
+    "user": "User",
+    "pass": "Pass",
+    "expiry": "Expiry",
+    "additional": "Additional"
+  }
+}

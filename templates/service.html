@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}{{ service.name }} - StreamBase{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px;">
+            <a href="{{ url_for('index') }}" class="btn" style="position: absolute; left: 20px;">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            
+            <div class="service-icon" 
+                 {% if service.color %}style="background-color: {{ service.color }}20; border: 2px solid {{ service.color }};"{% endif %}>
+                {% if service.icon_path %}
+                    <img src="{{ url_for('static', filename=service.icon_path) }}" alt="{{ service.name }}">
+                {% elif service.icon_class %}
+                    <i class="{{ service.icon_class }}" 
+                       {% if service.color %}style="color: {{ service.color }};"{% endif %}></i>
+                {% else %}
+                    <i class="fas fa-play-circle" style="color: var(--accent);"></i>
+                {% endif %}
+            </div>
+        </div>
+        
+        <h1>{{ service.name }}</h1>
+        
+        {% if service.comments %}
+            <p>{{ service.comments }}</p>
+        {% endif %}
+    </div>
+    
+    {% if service.accounts %}
+        <div class="accounts-container">
+            <h3 style="margin-bottom: 25px; color: var(--accent);">
+                <i class="fas fa-key"></i> Available Accounts ({{ service.accounts|length }})
+            </h3>
+            
+            {% for account in service.accounts %}
+                <div class="account-item">
+                    {% if account.type == 'cookies' %}
+                        <h5 style="margin-bottom: 15px; color: var(--success);">
+                            <i class="fas fa-cookie-bite"></i> Cookies Data
+                        </h5>
+                        <div class="cookies-data">{{ account.data }}</div>
+                        <button class="btn btn-sm copy-btn" data-copy="{{ account.data }}" style="margin-top: 10px;">
+                            <i class="fas fa-copy"></i> Copy Cookies
+                        </button>
+                    {% else %}
+                        <h5 style="margin-bottom: 15px; color: var(--success);">
+                            <i class="fas fa-user-circle"></i> Account #{{ loop.index }}
+                        </h5>
+                        
+                        <div class="account-details">
+                            {% if account.get('user') %}
+                                <div class="account-line">
+                                    <strong>{{ service.placeholders.get('user', placeholders.get('user', 'User')) if service.placeholders else placeholders.get('user', 'User') }}:</strong> 
+                                    <span>{{ account.user }}</span>
+                                    <button class="btn btn-sm copy-btn" data-copy="{{ account.user }}">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            {% endif %}
+                            
+                            {% if account.get('pass') %}
+                                <div class="account-line">
+                                    <strong>{{ service.placeholders.get('pass', placeholders.get('pass', 'Pass')) if service.placeholders else placeholders.get('pass', 'Pass') }}:</strong> 
+                                    <span>{{ account.pass }}</span>
+                                    <button class="btn btn-sm copy-btn" data-copy="{{ account.pass }}">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            {% endif %}
+                            
+                            {% if account.get('expiry') %}
+                                <div class="account-line">
+                                    <strong>{{ service.placeholders.get('expiry', placeholders.get('expiry', 'Expiry')) if service.placeholders else placeholders.get('expiry', 'Expiry') }}:</strong> 
+                                    <span>{{ account.expiry }}</span>
+                                    <button class="btn btn-sm copy-btn" data-copy="{{ account.expiry }}">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            {% endif %}
+                            
+                            {% if account.get('additional') %}
+                                <div class="account-line">
+                                    <strong>{{ service.placeholders.get('additional', placeholders.get('additional', 'Additional')) if service.placeholders else placeholders.get('additional', 'Additional') }}:</strong> 
+                                    <span>{{ account.additional }}</span>
+                                    <button class="btn btn-sm copy-btn" data-copy="{{ account.additional }}">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center" style="margin: 100px 0;">
+            <i class="fas fa-key" style="font-size: 4rem; color: var(--text-secondary); margin-bottom: 20px;"></i>
+            <h3 style="color: var(--text-secondary); margin-bottom: 10px;">No Accounts Available</h3>
+            <p style="color: var(--text-secondary);">Check back later for available accounts.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Copy functionality with enhanced feedback
+document.addEventListener('DOMContentLoaded', function() {
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const textToCopy = this.getAttribute('data-copy');
+            
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                // Visual feedback
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.style.background = 'var(--success)';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.style.background = '';
+                }, 2000);
+                
+                // Show notification
+                showNotification('Copied to clipboard!', 'success');
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+                showNotification('Failed to copy', 'error');
+            });
+        });
+    });
+});
+</script>
+{% endblock %}
