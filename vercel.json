@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "main.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "installCommand": "pip install --no-cache-dir -r requirements.txt && sudo apt-get update && sudo apt-get install -y libcairo2-dev"
+      }
     }
   ],
   "routes": [
