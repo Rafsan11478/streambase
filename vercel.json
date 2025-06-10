@@ -5,7 +5,7 @@
       "src": "main.py",
       "use": "@vercel/python",
       "config": {
-        "installCommand": "pip install --no-cache-dir -r requirements.txt && sudo apt-get update && sudo apt-get install -y libcairo2-dev"
+        "installCommand": "pip install --no-cache-dir -r requirements.txt && sudo apt-get update && sudo apt-get install -y build-essential libcairo2-dev libev-dev libc-ares-dev"
       }
     }
   ],
